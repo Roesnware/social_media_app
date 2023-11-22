@@ -27,5 +27,10 @@ const thoughtSchema = new Schema(
     }
 );
 
+// virtual for reactions on thoughts
+thoughtSchema.virtual('reactionsCount').get( () => {
+    return this.reactions.length;
+})
+
 // export module
 module.exports = thoughtSchema;
