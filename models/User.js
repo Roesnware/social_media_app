@@ -37,5 +37,13 @@ const userSchema = new Schema(
     }
 );
 
+// virtual for friends
+userSchema.virtual('friendsCnt').get( () => {
+    return this.friends.length;
+});
+
+// make user model
+const User = model('user', userSchema);
+
 // export module
-module.exports = userSchema;
+module.exports = User;
