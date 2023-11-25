@@ -49,7 +49,7 @@ const userController = {
     async getAUser(req, res) {
         try { // try 
             // get user from db
-            const user = await User.findOne(
+            const getThisUser = await User.findOne(
                 {
                     _id: req.params.userId
                 }
@@ -59,12 +59,66 @@ const userController = {
                 .populate('friends');
 
             // no user found 
-            if (!user) {
+            if (!getThisUser) {
                 res.status(400).json({ message: 'No user found with that id!' });
             }
 
             // success
-            res.status(200).json(user);
+            res.status(200).json(getThisUser);
+        }
+        catch (err) { // catch err
+            res.status(500).json(err);
+        }
+    },
+    // update a user
+    async updateAUser(req, res) {
+        try { // try
+            // find user and update 
+            const updateThisUser = await User.findOneAndUpdate(
+                {
+                    _id: req.params.userId
+                },
+                {
+                    $set: {
+                        username: req.body.username,
+                        email: req.body.email,
+                    },
+                },
+                {
+                    runValidators: true,
+                    new: true,
+                }
+            );
+
+            // err updating
+            if (!updateThisUser) {
+                res.status(400).json({ message: 'No user found with that id!' });
+            }
+
+            // success
+            res.status(200).json(updateThisUser);
+        }
+        catch (err) { // catch err
+            res.status(500).json(err);
+        }
+    },
+    // delete a user 
+    async deleteAUser(req, res) {
+        try { // try
+            // find user and delete
+            const deleteThisUser = await User.findOneAndDelete(
+                {
+                    _id: req.params.userId
+                }
+            )
+
+            // no user data
+            if (!deleteThisUser) {
+                return res.status(400).json({ message: 'No user found with that id!' });
+            }
+
+            // success
+            res.status(200).json({ message: 'User successfully deleted!' });
         }
         catch (err) { // catch err
             res.status(500).json(err);
