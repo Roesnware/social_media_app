@@ -1,5 +1,5 @@
 // import models
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
 // controller
 const userController = {
@@ -70,7 +70,7 @@ const userController = {
             res.status(500).json(err);
         }
     },
-    // update a user
+    // method to update a user
     async updateAUser(req, res) {
         try { // try
             // find user and update 
@@ -102,7 +102,7 @@ const userController = {
             res.status(500).json(err);
         }
     },
-    // delete a user 
+    // method to delete a user 
     async deleteAUser(req, res) {
         try { // try
             // find user and delete
@@ -123,6 +123,39 @@ const userController = {
         catch (err) { // catch err
             res.status(500).json(err);
         }
+    },
+    // method to add a friend 
+    async addAFriend(req, res) {
+        try { // try
+            // get user and update friends array 
+            const addFriendToThisUser = await User.findOneAndUpdate(
+                {
+                    _id: req.params.userId,
+                },
+                {
+                    $addToSet: {
+                        friends: req.params.friendsId,
+                    },
+                },
+                {
+                    new: true,
+                });
+
+            // no user data found 
+            if (!addFriendToThisUser) {
+                return res.status(400).json({ message: 'No user found with that id!' });
+            }
+
+            // success
+            res.status(200).json(addFriendToThisUser);
+        } 
+        catch (err) { // catch err
+            res.status(500).json(err);
+        }
+    },
+    // method to delete a friend 
+    async removeAFriend(req, res) {
+
     },
 };
 
