@@ -4,7 +4,7 @@ const { User } = require('../models');
 // controller
 const userController = {
     // method to create a user 
-    async createAUser(req, res) {
+    async createAUser (req, res) {
         try { // try 
             // create user using username and email form req
             const createThisUser = await User.create(
@@ -27,7 +27,7 @@ const userController = {
         }
     },
     // method to get all users
-    async getAllUsers(req, res) {
+    async getAllUsers (req, res) {
         try { // try 
             // get all users from db
             const allUsers = await User.find({})
@@ -46,7 +46,7 @@ const userController = {
         }
     },
     // method to get a user 
-    async getAUser(req, res) {
+    async getAUser (req, res) {
         try { // try 
             // get user from db
             const getThisUser = await User.findOne(
@@ -71,7 +71,7 @@ const userController = {
         }
     },
     // method to update a user
-    async updateAUser(req, res) {
+    async updateAUser (req, res) {
         try { // try
             // find user and update 
             const updateThisUser = await User.findOneAndUpdate(
@@ -103,7 +103,7 @@ const userController = {
         }
     },
     // method to delete a user 
-    async deleteAUser(req, res) {
+    async deleteAUser (req, res) {
         try { // try
             // find user and delete
             const deleteThisUser = await User.findOneAndDelete(
@@ -125,7 +125,7 @@ const userController = {
         }
     },
     // method to add a friend 
-    async addAFriend(req, res) {
+    async addAFriend (req, res) {
         try { // try
             // get user and update friends array 
             const addFriendToThisUser = await User.findOneAndUpdate(
@@ -154,7 +154,7 @@ const userController = {
         }
     },
     // method to delete a friend 
-    async removeAFriend(req, res) {
+    async removeAFriend (req, res) {
         try { // try 
             // find user and delete friend from friends array
             const deleteAFriendFromThisUser = await User.findOneAndUpdate(
