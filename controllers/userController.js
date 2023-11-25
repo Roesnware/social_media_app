@@ -114,7 +114,7 @@ const userController = {
 
             // no user data
             if (!deleteThisUser) {
-                return res.status(400).json({ message: 'No user found with that id!' });
+                res.status(400).json({ message: 'No user found with that id!' });
             }
 
             // success
@@ -143,19 +143,44 @@ const userController = {
 
             // no user data found 
             if (!addFriendToThisUser) {
-                return res.status(400).json({ message: 'No user found with that id!' });
+                res.status(400).json({ message: 'No user found with that id!' });
             }
 
             // success
             res.status(200).json(addFriendToThisUser);
-        } 
+        }
         catch (err) { // catch err
             res.status(500).json(err);
         }
     },
     // method to delete a friend 
     async removeAFriend(req, res) {
+        try { // try 
+            // find user and delete friend from friends array
+            const deleteAFriendFromThisUser = await User.findOneAndUpdate(
+                {
+                    _id: req.params.userId,
+                },
+                {
+                    $pull: {
+                        friends: req.params.friendsId,
+                    },
+                },
+                {
+                    new: true,
+                });
 
+            // no user data found 
+            if (!deleteAFriendFromThisUser) {
+                res.status(400).json({ message: 'No user found with that id!' });
+            }
+
+            // success
+            res.status(200).json(deleteAFriendFromThisUser);
+        }
+        catch (err) { // catch err
+            res.status(500).json(err);
+        }
     },
 };
 
