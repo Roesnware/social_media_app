@@ -7,12 +7,7 @@ const thoughtController = {
     async createAThought(req, res) {
         try { // try 
             // create thought 
-            const createThisThought = await Thought.create(
-                {
-                    thoughtContent: req.body.thoughtContent,
-                    username: req.body.username,
-                }
-            );
+            const createThisThought = await Thought.create(req.body);
 
             // add thought to user
             const addThoughtToThisUser = await User.findOneAndUpdate(
@@ -31,7 +26,7 @@ const thoughtController = {
 
             // no user associated to thought 
             if (!addThoughtToThisUser) {
-                res.status(400).json({ message: 'No user found with that id!' });
+                return res.status(400).json({ message: 'No user found with that id!' });
             }
 
             // success
@@ -72,7 +67,7 @@ const thoughtController = {
 
             // no thought found 
             if (!getThisThought) {
-                res.status(400).json({ message: 'No thought found with that id!' });
+                return res.status(400).json({ message: 'No thought found with that id!' });
             }
 
             // success
@@ -104,7 +99,7 @@ const thoughtController = {
 
             // no thouhgt found
             if (!updateThisThought) {
-                res.status(400).json({ message: 'No thought found with that id!' });
+                return res.status(400).json({ message: 'No thought found with that id!' });
             }
 
             // success
@@ -126,7 +121,7 @@ const thoughtController = {
 
             // no thought found 
             if (!deleteThisThought) {
-                res.status(400).json({ message: 'No thought found with that id!' });
+                return res.status(400).json({ message: 'No thought found with that id!' });
             }
 
             // remove thought id from user
@@ -146,7 +141,7 @@ const thoughtController = {
 
             // no user found 
             if (!deleteThoughtFromThisUser) {
-                res.status(400).json({ message: 'No user found with that id!' });
+                return res.status(400).json({ message: 'No user found with that id!' });
             }
 
             // success
@@ -178,7 +173,7 @@ const thoughtController = {
 
             // no thought found 
             if (!addReactionToThisThought) {
-                res.status(400).json({ message: 'No thought found with that id!' });
+                return res.status(400).json({ message: 'No thought found with that id!' });
             }
 
             // success
@@ -211,7 +206,7 @@ const thoughtController = {
 
             // no thought found 
             if (!removeReactionToThisThought) {
-                res.status(400).json({ message: 'No thought found with that id!' });
+                return res.status(400).json({ message: 'No thought found with that id!' });
             }
 
             // success
