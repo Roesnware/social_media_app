@@ -16,7 +16,7 @@ const thoughtController = {
                 },
                 {
                     $push: {
-                        thoughts: dbThoughtData._id,
+                        thoughts: createThisThought._id,
                     },
                 },
                 {
