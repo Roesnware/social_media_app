@@ -87,7 +87,7 @@ const thoughtController = {
                 },
                 {
                     $set: {
-                        thoughtContent: req.body.thoughtContent,
+                        thoughtText: req.body.thoughtContent,
                         username: req.body.username,
                     }
                 },

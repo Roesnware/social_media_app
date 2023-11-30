@@ -8,24 +8,26 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
+            trim: true,
         },
         email: {
             type: String,
             required: true,
             unique: true,
+            match: [/.+@.+\..+/, 'Please use valid email address.'],
         },
-        friends:
-            [
-                {
-                    type: Schema.Types.ObjectId,
-                    ref: 'user',
-                },
-            ],
         thoughts:
             [
                 {
                     type: Schema.Types.ObjectId,
                     ref: 'thought',
+                },
+            ],
+        friends:
+            [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: 'user',
                 },
             ],
     },
@@ -38,7 +40,7 @@ const userSchema = new Schema(
 );
 
 // virtual for friends
-userSchema.virtual('friendsCnt').get(function() {
+userSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 });
 

@@ -5,22 +5,23 @@ const formatDate = require('../utils/formatDate');
 // make schema for reactions
 const reactionSchema = new Schema(
     {
-        id: {
+        ReactionId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId()
         },
-        reactionContent: {
+        reactionBody: {
+            type: String,
+            required: true,
+            maxLength: 280,
+        },
+        username: {
             type: String,
             required: true,
         },
-        user: {
-            type: String,
-            required: true,
-        },
-        createdOn: {
+        createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => dateFormat(timestamp),
+            get: timestamp => formatDate(timestamp),
         }
     },
     {

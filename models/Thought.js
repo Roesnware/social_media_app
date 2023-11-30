@@ -6,16 +6,18 @@ const formatDate = require('../utils/formatDate');
 // make schema for thoughts
 const thoughtSchema = new Schema(
     {
-        thoughtContent: {
+        thoughtText: {
             type: String,
             required: true,
+            minLength: 1,
+            maxLength: 280,
         },
-        createdOn: {
+        createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => dateFormat(timestamp),
+            get: timestamp => formatDate(timestamp),
         },
-        user: {
+        username: {
             type: String,
             required: true,
         },
@@ -30,7 +32,7 @@ const thoughtSchema = new Schema(
 );
 
 // virtual for reactions on thoughts
-thoughtSchema.virtual('reactionsCnt').get(function() {
+thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
