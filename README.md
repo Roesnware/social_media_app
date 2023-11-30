@@ -1,4 +1,4 @@
-# # Social Media App Backend
+# Social Media App Backend
 ## Description
     
     I want to create an app that lets simulates a social media app backend!
